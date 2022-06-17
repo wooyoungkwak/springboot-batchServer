@@ -40,7 +40,7 @@
         >   (post) "http://localhost:8080/start" + { "key" : "temp"} 
     3. 시작하기 위해서는 다음과 같은 url 을 전달 해야한다.
         >   (post) "http://localhost:8080/stop" + {"id" : 1}
-    4job 실행 상태 정보를 확인 하기 위해 다음과 같은 url 을 전달 해야한다.
+    4. job 실행 상태 정보를 확인 하기 위해 다음과 같은 url 을 전달 해야한다.
         >   (post) "http://localhost:8080/jobStatus"
     
 ### Reference 
