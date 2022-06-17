@@ -43,10 +43,10 @@ public class BatchConfiguration extends DefaultBatchConfigurer {
     private static final String JOB_NAME = "sampleJob";
     private static final String BEAN_PREFIX = JOB_NAME + "_";
 
-    // batch 메타 데이터를 데이터 베이스에 저장 하지 않기 위해 사용
-    @Override
-    public void setDataSource(DataSource dataSource) {
-    }
+    // batch 메타 데이터를 데이터 베이스에 저장 하지 않는 방법 ( DataSource 를 생략)
+//    @Override
+//    public void setDataSource(DataSource dataSource) {
+//    }
 
     @Bean(JOB_NAME)
     public Job myJob(JobCompletionNotificationListener listener, Step step) {
