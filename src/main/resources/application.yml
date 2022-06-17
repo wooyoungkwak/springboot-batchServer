@@ -1,0 +1,66 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views
+      suffix: .jsp
+  devtools:
+    livereload:
+      enabled: true
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      use-new-id-generator-mappings: false
+  batch:
+    job:
+      enabled: false
+      names: sampleJob
+logging:
+  config: classpath:log4j2.xml
+debug: false
+file:
+  templateLocation: classpath:/templates/
+  staticLocation: classpath:/static/
+  resourceUri: /fileUpload/**
+  resourceLocation: D:/fileUpload/
+---
+# debug
+spring:
+  config:
+    activate:
+      on-profile: debug
+  jpa:
+    database-platform: org.hibernate.dialect.SQLServer2012Dialect
+  datasource:
+    url: jdbc:sqlserver://localhost;databaseName=batchServer;trustServerCertificate=true;encrypt=true;
+    username: sa
+    password: rudnf12dnjf
+  batch:
+    job:
+      enabled: true
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    session:
+      timeout: 300m
+---
+# release
+spring:
+  config:
+    activate:
+      on-profile: release
+  jpa:
+    database-platform: org.hibernate.dialect.SQLServer2012Dialect
+  datasource:
+    url: jdbc:sqlserver://localhost;databaseName=_____;trustServerCertificate=true;encrypt=true;
+    username: 
+    password: 
+server:
+  port: 80
+  servlet:
+    context-path: /
+    session:
+      timeout: 30m

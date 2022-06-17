@@ -1,0 +1,37 @@
+/* extends */
+ext.dependenceOnSecurity = false                   // whether to use spring-boot-security
+ext.dependenceOnAop = false                        // whether to use spring-boot-aop
+ext.dependenceOnJwt = false                        // whether to use jwt
+ext.dependenceOnRDBMS = true                      // whether to use RDBMS
+ext.dependenceOnQUERYDSL = true                   // whether to use query DSL
+ext.dependenceOnMYBATIS = false                    // whether to use mybatis
+ext.uploadArchive = false                          // whether to upload archive
+ext.dependenceOnBatch = true                        // whether to use Batch
+ext.dependenceOnQuartz = false                       // whether to use Quartz ( scheduler )
+ext.dependenceOnExcel = false                       // whether to use Excel Control
+
+ext.RDMBS = [
+        MYSQL : "MYSQL",
+        MSSQL : "MSSQL",
+        ORACLE: "ORACLE"
+]
+
+ext.typeOfRDMBS = RDMBS.MSSQL                       // select to RDBMS
+
+ext.hostOfDEBUG = "localhost"                       // database host name for DEBUG Profile
+ext.databaseNameOfDEBUG = "batchServer"                  // database name for DEBUG Profile
+ext.usernameOfDEBUG = "sa"                          // database name for DEBUG Profile
+ext.passwordOfDEBUG = "rudnf12dnjf"                 // database name for DEBUG Profile
+
+ext.hostOfRELASE = "localhost"                      // database host name for RELEASE Profile
+ext.databaseNameOfRELASE = ""                 // database name for RELEASE Profile
+ext.usernameOfRELASE = ""                         // database name for DEBUG Profile
+ext.passwordOfRELASE = ""                // database name for DEBUG Profile
+
+/* apply */
+apply from: 'initConfiguration.gradle'              // configuration for built environment
+apply from: 'initDependencies.gradle'              // configuration for built environment
+apply from: 'initFile.gradle'                       // create to web file
+
+if (uploadArchive !=null && uploadArchive)
+    apply from: 'uploadArchive.gradle'                  // upload to archive repository
