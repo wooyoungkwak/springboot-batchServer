@@ -1,5 +1,6 @@
-package com.example.springbootbatchserver.batch;
+package com.example.springbootbatchserver.configuration;
 
+import com.example.springbootbatchserver.batch.*;
 import com.example.springbootbatchserver.model.entity.person.domain.Person;
 import com.example.springbootbatchserver.model.entity.person.service.PersonService;
 import lombok.RequiredArgsConstructor;
@@ -8,10 +9,10 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.*;
 import org.springframework.batch.item.ItemProcessor;
-import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -35,7 +36,6 @@ public class BatchConfiguration extends DefaultBatchConfigurer {
     private final PersonService personService;
 
     private final DataSource dataSource;
-
 
     /* reader 데이터 건수 ( row 수 )*/
     private int chunkSize = 2;
@@ -66,7 +66,7 @@ public class BatchConfiguration extends DefaultBatchConfigurer {
                 /* reader / processor / writer 방식 */
                 step = stepBuilderFactory.get(BEAN_PREFIX + "step")
                         .<Person, Person>chunk(chunkSize)
-                        .reader(jdbcCursorItemReaderBuilder())
+                        .reader(jdbcCursorItemReaderBuilder(null))
                         .processor(processor())
                         .writer(writer())
                         .build();
@@ -85,7 +85,9 @@ public class BatchConfiguration extends DefaultBatchConfigurer {
 
     @Bean
     @StepScope
-    public JdbcCursorItemReader<Person> jdbcCursorItemReaderBuilder() {
+    public JdbcCursorItemReader<Person> jdbcCursorItemReaderBuilder(@Value("#{jobParameters[key]}") String key ) {
+        log.info("jobParameter value = {}", key);
+
         return new JdbcCursorItemReaderBuilder<Person>()
                 .name("jdbcCursorItemReaderBuilder")
                 .fetchSize(chunkSize)

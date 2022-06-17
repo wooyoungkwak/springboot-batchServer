@@ -15,7 +15,7 @@ spring:
       use-new-id-generator-mappings: false
   batch:
     job:
-      enabled: false
+      enabled: true
       names: sampleJob
 logging:
   config: classpath:log4j2.xml
@@ -39,7 +39,7 @@ spring:
     password: rudnf12dnjf
   batch:
     job:
-      enabled: true
+      enabled: false
 server:
   port: 8080
   servlet:
